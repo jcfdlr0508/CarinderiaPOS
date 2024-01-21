@@ -47,42 +47,63 @@ require_once('partials/_head.php');
           </div>
         </div>
       </div>
-      <!-- Page content -->
-      <div class="container mt--8 pb-5">
-        <div class="row justify-content-center">
-          <div class="col-lg-5 col-md-7">
-            <div class="card bg-yellow shadow border-0">
-              <div class="card-body px-lg-5 py-lg-5">
-                <form method="post" role="form">
-                  <div class="form-group mb-3">
-                    <div class="input-group input-group-alternative">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="ni ni-email-83"></i></span>
-                      </div>
-                      <input class="form-control" required name="reset_email" placeholder="Email" type="email">
-                    </div>
-                  </div>
-                  <div style="display:none">
-                    <input type="text" value="<?php echo $tk; ?>" name="reset_token">
-                    <input type="text" value="<?php echo $rc; ?>" name="reset_code">
-                    <input type="text" value="Pending" name="reset_status">
-                  </div>
-                  <div class="text-center">
-                    <button type="submit" name="reset_pwd" class="btn btn-primary my-4">Reset Password</button>
-                  </div>
-                  <div class="row mt-3">
+<!-- Page content -->
+<div class="container mt--8 pb-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-5 col-md-7">
+      <div class="card bg-yellow shadow border-0">
+        <div class="card-body px-lg-5 py-lg-5">
+          <form method="post" role="form">
+            <!-- Email input fields -->
+            <div class="form-group mb-3">
+              <div class="input-group input-group-alternative">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                </div>
+                <input class="form-control" required name="reset_email" placeholder="Email" type="email">
+              </div>
+            </div>
+            <!-- Add password and Repeat password fields -->
+            <div class="form-group mb-3">
+              <div class="input-group input-group-alternative">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                </div>
+                <input class="form-control" required name="reset_password" placeholder="Password" type="password">
+              </div>
+            </div>
+
+            <div class="form-group mb-3">
+              <div class="input-group input-group-alternative">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                </div>
+                <input class="form-control" required name="reset_password_repeat" placeholder="Repeat Password" type="password">
+              </div>
+            </div>
+
+            <div style="display:none">
+              <input type="text" value="<?php echo $tk; ?>" name="reset_token">
+              <input type="text" value="<?php echo $rc; ?>" name="reset_code">
+              <input type="text" value="Pending" name="reset_status">
+            </div>
+
+            <div class="text-center">
+              <button type="submit" name="reset_pwd" class="btn btn-primary my-4">Reset Password</button>
+            </div>
+
+            <div class="row mt-3">
               <div class="col-6">
-                <a href="index.php" class="text-white"><strong><u>Log In?</u></strong></a>
-              </div>
-                </form>
+                <a href="/RestaurantPOS/RestaurantPOS/Restro/customer/index.php" class="text-white"><strong><u>Log In?</u></strong></a>
               </div>
             </div>
-            
-            </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>
+  </div>
+</div>
+
     <!-- Footer -->
     <?php
     require_once('partials/_footer.php');

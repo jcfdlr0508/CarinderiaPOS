@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="images/Latest Logo only with bg.png">
-    <title>Restro POS System</title>
+    <title>ELJ's Carinderia</title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -73,9 +73,9 @@
             </div>
 
             <div class="links">
-                <a href="Restro/admin/">Admin Log In</a>
-                <a href="Restro/cashier/">Cashier Log In</a>
-                <a href="Restro/customer">Customer Log In</a>
+                <a href="Carinderia/admin/">Admin Log In</a>
+                <a href="Carinderia/cashier/">Cashier Log In</a>
+                <a href="Carinderia/customer">Customer Log In</a>
             </div>
         </div>
     </div>

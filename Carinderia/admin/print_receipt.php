@@ -14,11 +14,11 @@ check_login();
     <meta name="author" content="MartDevelopers Inc">
     <title>ELJ's Carinderia </title>
     <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/icons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/icons/favicon-16x16.png">
-    <link rel="manifest" href="assets/img/icons/site.webmanifest">
-    <link rel="mask-icon" href="assets/img/icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="apple-touch-icon" sizes="180x180" href="../admin/assets/img/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../admin/assets/img/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../admin/assets/img/icons/favicon-16x16.png">
+    <link rel="manifest" href="../admin/assets/img/icons/site.webmanifest">
+    <link rel="mask-icon" href="../admin/assets/img/icons/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
     <link href="assets/css/bootstrap.css" rel="stylesheet" id="bootstrap-css">
@@ -48,15 +48,15 @@ while ($order = $res->fetch_object()) {
                 <div id="Receipt" class="well col-xs-10 col-sm-10 col-md-6 col-xs-offset-1 col-sm-offset-1 col-md-offset-3">
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
-                            <address>
-                                <strong>Elaine, Lee and Jecie's Carinderia</strong>
-                                <br>
-                                199-0-1-23
-                                <br>
-                                Block 1 Lot 1 Ciudad Nuevo Phase 5A, Sabang, Naic, Cavite
-                                <br>
-                                (+63) 921-451-2315
-                            </address>
+                        <address>
+                            <strong>Elaine, Lee and Jecie's Carinderia</strong>
+                            <br>
+                            199-0-1-23
+                            <br>
+                            Block 1 Lot 1 Ciudad Nuevo Phase 5A, Sabang, Naic, Cavite
+                            <br>
+                            (+63) 921-451-2315
+                        </address>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6 text-right">
                             <p>
@@ -135,11 +135,11 @@ while ($order = $res->fetch_object()) {
 </html>
 <script>
     function printContent(el) {
-        var restorepage = ₱('body').html();
-        var printcontent = ₱('#' + el).clone();
-        ₱('body').empty().html(printcontent);
+        var restorepage = $('body').html();
+        var printcontent = $('#' + el).clone();
+        $('body').empty().html(printcontent);
         window.print();
-        ₱('body').html(restorepage);
+        $('body').html(restorepage);
     }
 </script>
 <?php } ?>

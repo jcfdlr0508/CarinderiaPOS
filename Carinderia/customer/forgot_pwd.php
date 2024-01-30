@@ -3,30 +3,26 @@ session_start();
 include('config/config.php');
 require_once('config/code-generator.php');
 
-if (isset($_POST['reset_pwd'])) {
-  if (!filter_var($_POST['reset_email'], FILTER_VALIDATE_EMAIL)) {
-    $err = 'Invalid Email';
+if(isset($_POST['reset_pwd'])){
+  $email = $_POST['reset_email'];
+  $newpass = sha1(md5($_POST['reset_password']));
+  $confirm = sha1(md5($_POST['reset_password_repeat']));
+  
+  
+  if(empty($email)|| empty($newpass)|| empty($confirm)){
+    $err = "Fill All The Fields";
   }
-  $checkEmail = mysqli_query($mysqli, "SELECT `admin_email` FROM `rpos_admin` WHERE `admin_email` = '" . $_POST['reset_email'] . "'") or exit(mysqli_error($mysqli));
-  if (mysqli_num_rows($checkEmail) > 0) {
-    //exit('This email is already being used');
-    //Reset Password
-    $reset_code = $_POST['reset_code'];
-    $reset_token = sha1(md5($_POST['reset_token']));
-    $reset_status = $_POST['reset_status'];
-    $reset_email = $_POST['reset_email'];
-    $query = "INSERT INTO rpos_pass_resets (reset_email, reset_code, reset_token, reset_status) VALUES (?,?,?,?)";
-    $reset = $mysqli->prepare($query);
-    $rc = $reset->bind_param('ssss', $reset_email, $reset_code, $reset_token, $reset_status);
-    $reset->execute();
-    if ($reset) {
-      $success = "Password Reset Instructions Sent To Your Email";
-      // && header("refresh:1; url=index.php");
-    } else {
-      $err = "Please Try Again Or Try Later";
+  else {
+    $sql = "SELECT * FROM rpos_customers WHERE customer_email = '$email'; ";
+    $query = mysqli_query($mysqli, $sql);
+    $rows = mysqli_num_rows($query);
+    
+    if($rows > 0){
+      $sql = "UPDATE rpos_customers SET customer_password = '$newpass'";
+      $query = mysqli_query($mysqli, $sql);
+      $success = "Change Success" && header("refresh:1; url=index.php");
     }
-  } else {
-    $err = "No account with that email";
+
   }
 }
 require_once('partials/_head.php');

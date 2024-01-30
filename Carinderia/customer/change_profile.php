@@ -7,11 +7,11 @@ include('config/code-generator.php');
 check_login();
 if (isset($_POST['ChangeProfile'])) {
   //Prevent Posting Blank Values
-  if (empty($_POST["customer_phoneno"]) || empty($_POST["customer_name"]) || empty($_POST['customer_email'])) {
+  if (empty($_POST["customer_phone"]) || empty($_POST["customer_name"]) || empty($_POST['customer_email'])) {
     $err = "Blank Values Not Accepted";
   } else {
     $customer_name = $_POST['customer_name'];
-    $customer_phoneno = $_POST['customer_phoneno'];
+    $customer_phoneno = $_POST['customer_phone'];
     $customer_email = $_POST['customer_email'];
     $customer_id = $_SESSION['customer_id'];
 
@@ -19,7 +19,7 @@ if (isset($_POST['ChangeProfile'])) {
     $postQuery = "UPDATE rpos_customers SET customer_name =?, customer_phoneno =?, customer_email =?, customer_password =? WHERE  customer_id =?";
     $postStmt = $mysqli->prepare($postQuery);
     //bind paramaters
-    $rc = $postStmt->bind_param('sssss', $customer_name, $customer_phoneno, $customer_email, $customer_password, $customer_id);
+    $rc = $postStmt->bind_param('ssssi', $customer_name, $customer_phoneno, $customer_email, $customer_password, $customer_id);
     $postStmt->execute();
     //declare a varible which will be passed to alert function
     if ($postStmt) {
@@ -197,7 +197,7 @@ require_once('partials/_head.php');
                                         </div>
                                         <div class="col-lg-12">
                                             <div class="form-group">
-                                                <input type="submit" id="input-email" name="ChangeProfile" class="btn btn-success form-control-alternative" value="Submit"">
+                                                <input type="submit" id="input-email" name="ChangeProfile" class="btn btn-success form-control-alternative" value="Submit">
                                             </div>
                                         </div>
                                     </div>

@@ -1,34 +1,47 @@
 <?php
 session_start();
 include('config/config.php');
-require_once('config/code-generator.php');
 
-if (isset($_POST['reset_pwd'])) {
-  if (!filter_var($_POST['reset_email'], FILTER_VALIDATE_EMAIL)) {
-    $err = 'Invalid Email';
+
+if (isset($_POST['reset_pwd'])) { //
+  $email = $_POST['reset_email'];
+  $newpass = $_POST['reset_password'];
+  $rpass = $_POST['reset_password_repeat'];
+
+  if(empty($email )|| empty($newpass) || empty($rpass)){
+    $err = "Please Fill All The Fields!";
   }
-  $checkEmail = mysqli_query($mysqli, "SELECT `admin_email` FROM `rpos_admin` WHERE `admin_email` = '" . $_POST['reset_email'] . "'") or exit(mysqli_error($mysqli));
-  if (mysqli_num_rows($checkEmail) > 0) {
-    //exit('This email is already being used');
-    //Reset Password
-    $reset_code = $_POST['reset_code'];
-    $reset_token = sha1(md5($_POST['reset_token']));
-    $reset_status = $_POST['reset_status'];
-    $reset_email = $_POST['reset_email'];
-    $query = "INSERT INTO rpos_pass_resets (reset_email, reset_code, reset_token, reset_status) VALUES (?,?,?,?)";
-    $reset = $mysqli->prepare($query);
-    $rc = $reset->bind_param('ssss', $reset_email, $reset_code, $reset_token, $reset_status);
-    $reset->execute();
-    if ($reset) {
-      $success = "Password Reset Instructions Sent To Your Email";
-      // && header("refresh:1; url=index.php");
-    } else {
-      $err = "Please Try Again Or Try Later";
+  else {
+      $sql = "SELECT * FROM rpos_customers WHERE customer_email =?";
+      $res = mysqli_query($mysqli, $sql);
+      if (mysqli_num_rows($res) > 0) {
+        $row = mysqli_fetch_assoc($res);
+        if ($newpassword != $rpass) {
+          $err =  "Password Doesn\'t Match";
+        } else {
+
+          $newpass  = sha1(md5($_POST['reset_password']));
+          //Insert Captured information to a database table
+          $query = "UPDATE rpos_customers SET customer_password = ? WHERE customer_email =?";
+          $stmt = $mysqli->prepare($query);
+          //bind paramaters
+          $rc = $stmt->bind_param('s', $newpass);
+          $stmt->execute();
+
+          //declare a varible which will be passed to alert function
+          if ($stmt) {
+            $success = "Password Changed" && header("refresh:1; url=dashboard.php");
+          } else {
+            $err = "Please Try Again Or Try Later";
+          }
+        }
+      }
     }
-  } else {
-    $err = "No account with that email";
-  }
+   
+
+  
 }
+
 require_once('partials/_head.php');
 ?>
 
@@ -82,11 +95,6 @@ require_once('partials/_head.php');
               </div>
             </div>
 
-            <div style="display:none">
-              <input type="text" value="<?php echo $tk; ?>" name="reset_token">
-              <input type="text" value="<?php echo $rc; ?>" name="reset_code">
-              <input type="text" value="Pending" name="reset_status">
-            </div>
 
             <div class="text-center">
               <button type="submit" name="reset_pwd" class="btn btn-primary my-4">Reset Password</button>
@@ -94,7 +102,7 @@ require_once('partials/_head.php');
 
             <div class="row mt-3">
               <div class="col-6">
-                <a href="/RestaurantPOS/RestaurantPOS/Restro/customer/index.php" class="text-white"><strong><u>Log In?</u></strong></a>
+                <a href="../../customer/index.php" class="text-white"><strong><u>Log In?</u></strong></a>
               </div>
             </div>
           </form>
